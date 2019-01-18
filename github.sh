@@ -20,7 +20,9 @@ release() {
   echo "Releasing chart $1"
   helm package ./$1 --destination=$DESTINATION_DIR
   helm repo index $DESTINATION_DIR
-  VERSION=$(helm search $1 | awk '/$1/ {print $2}')
+  PARSED_VERSION=$(helm search $1 | awk '{print $2}')
+  VERSION=$(echo $PARSED_VERSION | awk '{print $2}')
+
   git add .
   git commit -m "[Helm] Release chart $1-$VERSION "
   git push origin master
