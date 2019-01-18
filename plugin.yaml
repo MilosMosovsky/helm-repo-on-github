@@ -1,0 +1,6 @@
+name: "github"
+version: "0.1.0"
+usage: "Store your Helm charts on Github repo"
+description: |-
+  This plugin allows you to release helm charts to your github repository.
+command: "$HELM_PLUGIN_DIR/github.sh"
