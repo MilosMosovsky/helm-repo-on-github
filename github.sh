@@ -17,11 +17,12 @@ EOF
 }
 
 release() {
-  echo "Releasing chart from $1"
-  helm package $1 --destination=$DESTINATION_DIR
+  echo "Releasing chart $1"
+  helm package ./$1 --destination=$DESTINATION_DIR
   helm repo index $DESTINATION_DIR
+  VERSION=$(helm search $1 | awk '/$1/ {print $2}')
   git add .
-  git commit -m "[Helm] Release chart $1"
+  git commit -m "[Helm] Release chart $1-$VERSION "
   git push origin master
   echo "Successfully pushed $1 to GitHub"
 }
